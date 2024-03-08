@@ -3,12 +3,12 @@ import './ExpenseLIst.css';
 import ExpenseItem from './ExpenseItem';
 import { MdDelete } from 'react-icons/md';
 
-const ExpenseLIst = ({initailExpenses,handleDelete,handleEdit})=>{
+const ExpenseLIst = ({expense,handleDelete,handleEdit,clearItem})=>{
     return (
         <>
             <ul className='list'>
                 {/* ExpenseItem */}
-                {initailExpenses.map(expense =>{
+                {expense.map(expense =>{
                     return(
                         <ExpenseItem 
                             expense={expense} 
@@ -19,10 +19,12 @@ const ExpenseLIst = ({initailExpenses,handleDelete,handleEdit})=>{
                     )
                 })}
             </ul>
-            <button className='btn'>
-                목록지우기
-                <MdDelete className='btn-icon'/>
-            </button>
+            {expense.length > 0 && (
+                <button className='btn' onClick={clearItem}>
+                    목록지우기
+                    <MdDelete className='btn-icon'/>
+                </button>
+            )}
         </>
     )
 }

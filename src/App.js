@@ -79,6 +79,10 @@ const App = ()=> {
     setEdit(true);
   }
 
+  const clearItem = ()=>{
+    setExpense([]);
+  }
+
   return(
     <main className="main-container">
       {alert.show ? <Alert type={alert.type} text={alert.text}/>:null}
@@ -97,9 +101,10 @@ const App = ()=> {
       <div style={{width:'100%', backgroundColor:'white',padding:'1rem'}}>
         {/* Expense List */}
         <ExpenseLIst 
-          initailExpenses={expense}
+          expense={expense}
           handleDelete={handleDelete}
-          handleEdit={handleEdit}/>
+          handleEdit={handleEdit}
+          clearItem={clearItem}/>
       </div>
       
       <div style={{display:'flex', justifyContent:'end', marginTop:'1rem'}}>
