@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseLIst from "./components/ExpenseLIst";
+import Alert from "./components/Alert";
 
 
 const App = ()=> { 
@@ -15,12 +16,14 @@ const App = ()=> {
       {id : 3, charge:"식비", amount: 1200},
     ]
   )
+  const [alert, setAlert] = useState({show:false});
 
 
   const handleDelete = (id)=>{
     const newExpenses = expense.filter(expense => expense.id !== id);
     console.log(newExpenses);
     setExpense(newExpenses);
+    handleAlert({type:"danger", text:"아이템이 삭제되었습니다."});
   }
 
   const handleChange = (e)=>{
@@ -43,15 +46,25 @@ const App = ()=> {
         setExpense(newExpenses);
         setCharge("");
         setAmount(0);
-
+        handleAlert({type:"success", text:"아이템이 생성되었습니다."});
     }else{
       console.log("error");
+      handleAlert({type:"danger", text:"charge는 빈 값일 수 없으며 amount는 0보다 커야합니다."});
     }
+  }
+
+  const handleAlert = ({type,text})=>{
+    setAlert({show:true, type, text});
+    setTimeout(() => {
+      setAlert({show:false});
+    }, 7000);
   }
 
   return(
     <main className="main-container">
+      {alert.show ? <Alert type={alert.type} text={alert.text}/>:null}
       <h1>예산 계산기</h1>
+
       <div style={{width:'100%', backgroundColor:'white',padding:'1rem'}}>
         {/* Expense Form */}
         <ExpenseForm 
